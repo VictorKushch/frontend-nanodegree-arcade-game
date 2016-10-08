@@ -61,30 +61,35 @@ Player.prototype.update = function(){
     this.y = this.y;
 }
 
+
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
+//change players position based on key input
 Player.prototype.handleInput = function(direction){
 
-    if (direction == 'up'){
+    if (direction == 'up' && this.y>-20){
         this.y -= 80;
-    } else if (direction == 'down') {
+        console.log('x: ', this.x, 'y: ', this.y);
+    } else if (direction == 'down' && this.y<380) {
         this.y += 80;
+        console.log('x: ', this.x, 'y: ', this.y);
 
-    } else if (direction == 'right') {
+    } else if (direction == 'right' && this.x<403 ) {
         this.x += 100;
-
-    } else if (direction == 'left') {
+        console.log('x: ', this.x, 'y: ', this.y);
+    } else if (direction == 'left' && this.x>3) {
         this.x -= 100;
+        console.log('x: ', this.x, 'y: ', this.y);
 
     }
 
 
 
 }
-// Now instantiate your objects.
+
+
 
 /*
 *
@@ -102,7 +107,7 @@ allEnemies.push(enemy);
 
 
 
-var player = new Player(303, 380);
+var player = new Player(203, 380);
 
 var Game = new Game();
 
