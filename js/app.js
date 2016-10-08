@@ -66,6 +66,24 @@ Player.prototype.render = function() {
 };
 
 
+Player.prototype.handleInput = function(direction){
+
+    if (direction == 'up'){
+        this.y -= 80;
+    } else if (direction == 'down') {
+        this.y += 80;
+
+    } else if (direction == 'right') {
+        this.x += 100;
+
+    } else if (direction == 'left') {
+        this.x -= 100;
+
+    }
+
+
+
+}
 // Now instantiate your objects.
 
 /*
