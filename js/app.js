@@ -14,14 +14,14 @@ var Enemy = function(x,y) {
     this.x = x;
     this.y = y;
 
-
+    this.multiplier = Math.floor((Math.random() * 5) + 1);
 
 };
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    this.x = this.x + 101;
+    this.x = this.x + 101 * dt * this.multiplier;
     if (this.x > 505){
         this.reset();
     }
@@ -98,13 +98,15 @@ Player.prototype.handleInput = function(direction){
 */
 
 var allEnemies = [];
-var y = 145;
+
 var x = -100;
+for (var i = 0; i < 5; i++){
+    var yValues = [60, 145, 230];
+    var y = yValues[Math.floor(Math.random()*3)];
+    var enemy = new Enemy(x, y);
 
-var enemy = new Enemy(x, y);
-
-allEnemies.push(enemy);
-
+    allEnemies.push(enemy);
+}
 
 
 var player = new Player(203, 380);
