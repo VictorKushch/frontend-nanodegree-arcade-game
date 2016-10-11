@@ -1,6 +1,7 @@
 var Game = function() {
 	this.gameOver = false;
 	this.gameWin = false;
+    this.gameScore = 200;
 };
 
 // Enemies our player must avoid
@@ -9,7 +10,7 @@ var Enemy = function(x,y) {
     //setting image for enemy
     this.sprite = 'images/enemy-bug.png';
 
-    //setting position
+//setting position
 
     this.x = x;
     this.y = y;
@@ -21,7 +22,28 @@ var Enemy = function(x,y) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    this.x = this.x + 101 * dt * this.multiplier;
+    this.x = this.x + 50 * dt * this.multiplier;
+    //collision detection
+    if (this.y == player.y && ((this.x < player.x + 20) && (this.x > player.x - 20))){
+        Game.gameScore -= 100;
+        console.log(Game.gameScore);
+        element = document.getElementById('score').innerHTML = 'Score: ' + Game.gameScore;
+
+        if (Game.gameScore <= 0){
+            Game.gameOver = true;
+            console.log(Game.gameOver);
+
+        }
+        if (Game.gameScore > 300){
+            Game.GameWin = true;
+        }
+
+
+        player.reset();
+    }
+
+
+
     if (this.x > 505){
         this.reset();
     }
@@ -29,7 +51,7 @@ Enemy.prototype.update = function(dt) {
 // reset enemy to the left side with 3 random y options
 Enemy.prototype.reset = function() {
     this.x = -200;
-    var yValues = [60, 145, 230];
+    var yValues = [60, 140, 220];
     this.y = yValues[Math.floor(Math.random()*3)];
 }
 
@@ -50,12 +72,18 @@ var Player = function(x,y){
     this.x = x;
     this.y = y;
 
-    this.x_original_position = x;
-    this.y_original_position = y;
+    this.lives = 5;
+
 
 
 }
 
+Player.prototype.reset = function(){
+    //reset player to the start position
+    this.x = 203;
+    this.y = 380;
+
+}
 Player.prototype.update = function(){
     this.x = this.x;
     this.y = this.y;
@@ -101,7 +129,7 @@ var allEnemies = [];
 
 var x = -100;
 for (var i = 0; i < 5; i++){
-    var yValues = [60, 145, 230];
+    var yValues = [60, 140, 220];
     var y = yValues[Math.floor(Math.random()*3)];
     var enemy = new Enemy(x, y);
 

@@ -45,9 +45,16 @@ var Engine = (function(global) {
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
-        update(dt);
-        render();
 
+        //Handling game win, loose and normal rendeering
+        if (Game.gameWin){
+            renderWin();
+        } else if(Game.gameOver){
+            renderEnd();
+        } else {
+            update(dt);
+            render();
+        }
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
          */
@@ -58,6 +65,9 @@ var Engine = (function(global) {
          */
         win.requestAnimationFrame(main);
     }
+
+
+
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
@@ -90,13 +100,55 @@ var Engine = (function(global) {
      * the data/properties related to the object. Do your drawing in your
      * render methods.
      */
+
     function updateEntities(dt) {
+
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
+
         player.update();
     }
 
+
+
+    //rendering Win screen
+    function renderWin(){
+        var img = new Image();
+        img.src = 'images/win.png';
+        if (img.complete) {
+            ctx.drawImage(img, 0, 0);
+        } else {
+            img.onload = function () {
+            ctx.drawImage(img, 0, 0);
+            };
+        }
+
+
+
+    }
+
+    //rendering Loose screen
+
+
+    // execute drawImage statements here
+
+    function renderEnd() {
+        // Render the game over image
+        var img = new Image();
+        img.src = 'images/gameover.png';
+        if (img.complete) {
+            ctx.drawImage(img, 0, 0);
+        } else {
+            img.onload = function () {
+            ctx.drawImage(img, 0, 0);
+            };
+        }
+
+
+    }
+
+     //ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
      * game tick (or loop of the game engine) because that's how games work -
