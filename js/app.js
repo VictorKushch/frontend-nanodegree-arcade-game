@@ -158,8 +158,6 @@ Gem.prototype.update = function(){
 
 
 Gem.prototype.render = function() {
-    console.log('Droving Gem');
-    console.log(this.sprite, this.x, this.y);
     var img = new Image();
         img.src = this.sprite;
         if (img.complete) {
@@ -189,16 +187,18 @@ for (var i = 0; i < 5; i++){
 
 var player = new Player(203, 380);
 
-//var allGems = [];
-var gem = new Gem(220,303);
+//Instantiate gems
+var allGems = [];
 
-  //Instantiate gems over the play field
-//var yValues = [60, 140, 220];
-  //  this.y = yValues[Math.floor(Math.random()*3)];
-    //console.log(this.y);
-    //var xValues = [3,103,203,303,403];
-    //this.x = xValues[Math.floor(Math.random()*5)];
-    //console.log(this.x);
+var yValues = [60, 140, 220];
+var xValues = [3,103,203,303,403];
+for (var j = 0; j<2; j++){
+    this.x = xValues[Math.floor(Math.random()*5)];
+    this.y = yValues[Math.floor(Math.random()*3)];
+    var gem = new Gem(this.x, this.y);
+    allGems.push(gem);
+}
+
 
 
 

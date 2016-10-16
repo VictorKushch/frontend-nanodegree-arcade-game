@@ -108,7 +108,10 @@ var Engine = (function(global) {
         });
 
         player.update();
-        gem.update();
+        allGems.forEach(function(gem){
+              gem.update();
+                        });
+
     }
 
 
@@ -205,8 +208,13 @@ var Engine = (function(global) {
         });
 
         player.render();
-        gem.render();
+
+        //render all gems from allgems arrow
+        allGems.forEach(function(gem){
+            gem.render();
+        });
     }
+
 
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
@@ -234,4 +242,5 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
+
 })(this);
