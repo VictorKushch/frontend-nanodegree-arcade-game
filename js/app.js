@@ -34,9 +34,6 @@ Enemy.prototype.update = function(dt) {
             console.log(Game.gameOver);
 
         }
-        if (Game.gameScore > 300){
-            Game.GameWin = true;
-        }
 
 
         player.reset();
@@ -136,8 +133,10 @@ Player.prototype.handleInput = function(direction){
 *
 */
 
+var gems_array = ['Heart.png','Key.png','Star.png','Rock.png','Gem Blue.png','Gem Green.png', 'Gem Orange.png'];
+
 var Gem = function(x,y){
-    var gems_array = ['Heart.png','Key.png','Star.png','Rock.png','Gem Blue.png','Gem Green.png', 'Gem Orange.png'];
+    //var gems_array = ['Heart.png','Key.png','Star.png','Rock.png','Gem Blue.png','Gem Green.png', 'Gem Orange.png'];
     this.sprite = 'images/' + gems_array[Math.floor(Math.random()*7)];
     console.log(this.sprite);
     this.x = x;
@@ -146,14 +145,31 @@ var Gem = function(x,y){
 
 
 }
-Gem.prototype.reset = function(){
 
+
+Gem.prototype.reset = function(){
+    var yValues = [60, 140, 220];
+    var xValues = [3,103,203,303,403];
+    this.x = xValues[Math.floor(Math.random()*5)];
+    this.y = yValues[Math.floor(Math.random()*3)];
+    this.sprite = 'images/' + gems_array[Math.floor(Math.random()*7)];
 
 
 }
 Gem.prototype.update = function(){
+    if (this.y == player.y && ((this.x < player.x + 20) && (this.x > player.x - 20))){
+        Game.gameScore += 50;
+        element = document.getElementById('score').innerHTML = 'Score: ' + Game.gameScore;
+
+        if (Game.gameScore > 500){
+            Game.GameWin = true;
+        }
+        gem.reset();
+    }
+
     this.x = this.x;
     this.y = this.y;
+
 }
 
 
@@ -192,12 +208,16 @@ var allGems = [];
 
 var yValues = [60, 140, 220];
 var xValues = [3,103,203,303,403];
-for (var j = 0; j<2; j++){
-    this.x = xValues[Math.floor(Math.random()*5)];
-    this.y = yValues[Math.floor(Math.random()*3)];
-    var gem = new Gem(this.x, this.y);
+for (var j = 0; j < 2; j++){
+    //while (allGems.includes(gem) === false) {
+        this.x = xValues[Math.floor(Math.random()*5)];
+        this.y = yValues[Math.floor(Math.random()*3)];
+        var gem = new Gem(this.x, this.y);
+    //}
+
     allGems.push(gem);
-}
+        }
+
 
 
 
