@@ -130,13 +130,50 @@ Player.prototype.handleInput = function(direction){
 
 }
 
+/*
+*
+* Gems class
+*
+*/
 
+var Gem = function(x,y){
+    var gems_array = ['Heart.png','Key.png','Star.png','Rock.png','Gem Blue.png','Gem Green.png', 'Gem Orange.png'];
+    this.sprite = 'images/' + gems_array[Math.floor(Math.random()*7)];
+    console.log(this.sprite);
+    this.x = x;
+    this.y = y;
+    console.log(this.x, this.y);
+
+
+}
+Gem.prototype.reset = function(){
+
+
+
+}
+Gem.prototype.update = function(){
+    this.x = this.x;
+    this.y = this.y;
+}
+
+
+Gem.prototype.render = function() {
+    console.log('Droving Gem');
+    console.log(this.sprite, this.x, this.y);
+    var img = new Image();
+        img.src = this.sprite;
+        if (img.complete) {
+            ctx.drawImage(img, this.x, this.y);
+        }
+};
 
 /*
 *
 * INSTANTIONATE ALL OBJECTS
 *
 */
+var Game = new Game();
+
 
 var allEnemies = [];
 
@@ -152,8 +189,16 @@ for (var i = 0; i < 5; i++){
 
 var player = new Player(203, 380);
 
-var Game = new Game();
+//var allGems = [];
+var gem = new Gem(220,303);
 
+  //Instantiate gems over the play field
+//var yValues = [60, 140, 220];
+  //  this.y = yValues[Math.floor(Math.random()*3)];
+    //console.log(this.y);
+    //var xValues = [3,103,203,303,403];
+    //this.x = xValues[Math.floor(Math.random()*5)];
+    //console.log(this.x);
 
 
 
