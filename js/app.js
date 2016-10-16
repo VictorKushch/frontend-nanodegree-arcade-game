@@ -72,8 +72,6 @@ var Player = function(x,y){
     this.x = x;
     this.y = y;
 
-    this.lives = 5;
-
 
 
 }
@@ -114,6 +112,21 @@ Player.prototype.handleInput = function(direction){
     }
 
 
+    if (this.y == "-20" ){
+        console.log("+100!!");
+        Game.gameScore += 100;
+        element = document.getElementById('score').innerHTML = 'Score: ' + Game.gameScore;
+
+        //handling end of the game
+        if (Game.gameScore > 500){
+            console.log('You won the game!');
+            Game.gameWin = true;
+
+
+        }
+        player.reset();
+
+    }
 
 }
 
