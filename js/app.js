@@ -132,27 +132,23 @@ Player.prototype.handleInput = function(direction){
 * Gems class
 *
 */
-
+//array of posible gem sprites available for all gem methods
 var gems_array = ['Heart.png','Key.png','Star.png','Rock.png','Gem Blue.png','Gem Green.png', 'Gem Orange.png'];
 
 var Gem = function(x,y){
-    //var gems_array = ['Heart.png','Key.png','Star.png','Rock.png','Gem Blue.png','Gem Green.png', 'Gem Orange.png'];
     this.sprite = 'images/' + gems_array[Math.floor(Math.random()*7)];
-    console.log(this.sprite);
     this.x = x;
     this.y = y;
-    console.log(this.x, this.y);
 
 
 }
 
-
 Gem.prototype.reset = function(){
-    var yValues = [60, 140, 220];
-    var xValues = [3,103,203,303,403];
-    this.x = xValues[Math.floor(Math.random()*5)];
-    this.y = yValues[Math.floor(Math.random()*3)];
-    this.sprite = 'images/' + gems_array[Math.floor(Math.random()*7)];
+    //var yValues = [60, 140, 220];
+    //var xValues = [3,103,203,303,403];
+    //this.x = xValues[Math.floor(Math.random()*5)];
+    //this.y = yValues[Math.floor(Math.random()*3)];
+    //this.sprite = 'images/' + gems_array[Math.floor(Math.random()*7)];
 
 
 }
@@ -208,16 +204,21 @@ var allGems = [];
 
 var yValues = [60, 140, 220];
 var xValues = [3,103,203,303,403];
+//Creating 2 gems with 2 different placings
 for (var j = 0; j < 2; j++){
-    //while (allGems.includes(gem) === false) {
         this.x = xValues[Math.floor(Math.random()*5)];
         this.y = yValues[Math.floor(Math.random()*3)];
         var gem = new Gem(this.x, this.y);
-    //}
+        //checking is array gems are already placed on that spot
+        for (k = 0; k = allGems.size; k++){
+            if (allGems[k].x == this.x && allGems[k].y == this.y){
+                this.x = xValues[Math.floor(Math.random()*5)];
+                this.y = yValues[Math.floor(Math.random()*3)];
+            }
+        }
 
     allGems.push(gem);
         }
-
 
 
 
