@@ -1,6 +1,16 @@
-frontend-nanodegree-arcade-game
+Bug-runner JS game 1.0
 ===============================
+#Play
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+The game can be played [here](https://victorkushch.github.io/frontend-nanodegree-arcade-game/).
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+#Main objective
+
+Please get 700 points to win the game by collecting gems or reacing the river
+
+#How to play
+1.Use direction arrows to move over the board
+2.Collect any gem to get 50 points or reach the river to get 25.
+3.Watch out for the bugs. Each collision will take out 100 points.
+4.After wining or loosing the game refresh the page to reset the game. 
+
