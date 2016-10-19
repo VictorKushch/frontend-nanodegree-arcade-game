@@ -36,7 +36,8 @@ Enemy.prototype.update = function(dt) {
         //resesing player to start position
         player.reset();
     }
-
+ this.x = this.x;
+ this.y = this.y;
 
 };
 // reset enemy to the left side with 3 random y options
@@ -109,7 +110,7 @@ Player.prototype.handleInput = function(direction){
         element = document.getElementById('score').innerHTML = 'Score: ' + Game.gameScore;
 
         //handling win of the game
-        if (Game.gameScore > 500){
+        if (Game.gameScore > 700){
             Game.gameWin = true;
         }
         player.reset();
@@ -157,7 +158,7 @@ Gem.prototype.update = function(){
         //updating frontend
         element = document.getElementById('score').innerHTML = 'Score: ' + Game.gameScore;
         //detecting win of the game
-        if (Game.gameScore > 500){
+        if (Game.gameScore > 700){
             Game.gameWin = true;
         }
         //reset gem positin if collision detected
