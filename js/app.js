@@ -36,7 +36,7 @@ Enemy.prototype.update = function(dt) {
         //resesing player to start position
         player.reset();
     }
-
+//restarting enemy instance when it reach right side of screen
 if (this.x > 505){
         this.reset();
     }
