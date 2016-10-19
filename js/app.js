@@ -26,13 +26,10 @@ Enemy.prototype.update = function(dt) {
     //collision detection
     if (this.y == player.y && ((this.x < player.x + 20) && (this.x > player.x - 20))){
         Game.gameScore -= 100;
-        console.log(Game.gameScore);
         element = document.getElementById('score').innerHTML = 'Score: ' + Game.gameScore;
 
         if (Game.gameScore <= 0){
             Game.gameOver = true;
-            console.log(Game.gameOver);
-
         }
 
 
@@ -82,6 +79,7 @@ Player.prototype.reset = function(){
 Player.prototype.update = function(){
     this.x = this.x;
     this.y = this.y;
+
 }
 
 
@@ -110,16 +108,12 @@ Player.prototype.handleInput = function(direction){
 
 
     if (this.y == "-20" ){
-        console.log("+100!!");
-        Game.gameScore += 100;
+        Game.gameScore += 25;
         element = document.getElementById('score').innerHTML = 'Score: ' + Game.gameScore;
 
-        //handling end of the game
+        //handling win of the game
         if (Game.gameScore > 500){
-            console.log('You won the game!');
             Game.gameWin = true;
-
-
         }
         player.reset();
 
@@ -135,20 +129,24 @@ Player.prototype.handleInput = function(direction){
 //array of posible gem sprites available for all gem methods
 var gems_array = ['Heart.png','Key.png','Star.png','Rock.png','Gem Blue.png','Gem Green.png', 'Gem Orange.png'];
 
-var Gem = function(x,y){
+var Gem = function(x, y){
     this.sprite = 'images/' + gems_array[Math.floor(Math.random()*7)];
-    this.x = x;
-    this.y = y;
+    var yValues = [60, 140, 220];
+    var xValues = [3,103,203,303,403];
+    this.x = xValues[Math.floor(Math.random()*5)];
+    this.y = yValues[Math.floor(Math.random()*3)];
 
 
 }
 
+
 Gem.prototype.reset = function(){
-    //var yValues = [60, 140, 220];
-    //var xValues = [3,103,203,303,403];
-    //this.x = xValues[Math.floor(Math.random()*5)];
-    //this.y = yValues[Math.floor(Math.random()*3)];
-    //this.sprite = 'images/' + gems_array[Math.floor(Math.random()*7)];
+    var yValues = [60, 140, 220];
+    var xValues = [3,103,203,303,403];
+
+    this.x = xValues[Math.floor(Math.random()*5)];
+    this.y = yValues[Math.floor(Math.random()*3)];
+    this.sprite = 'images/' + gems_array[Math.floor(Math.random()*7)];
 
 
 }
@@ -158,14 +156,12 @@ Gem.prototype.update = function(){
         element = document.getElementById('score').innerHTML = 'Score: ' + Game.gameScore;
 
         if (Game.gameScore > 500){
-            Game.GameWin = true;
+            Game.gameWin = true;
         }
-        gem.reset();
+        this.reset();
     }
-
     this.x = this.x;
     this.y = this.y;
-
 }
 
 
@@ -202,18 +198,13 @@ var player = new Player(203, 380);
 //Instantiate gems
 var allGems = [];
 
-var yValues = [60, 140, 220];
-var xValues = [3,103,203,303,403];
 //Creating 2 gems with 2 different placings
-for (var j = 0; j < 2; j++){
-        this.x = xValues[Math.floor(Math.random()*5)];
-        this.y = yValues[Math.floor(Math.random()*3)];
-        var gem = new Gem(this.x, this.y);
+for (var j = 0; j < 3; j++){
+        var gem = new Gem();
         //checking is array gems are already placed on that spot
         for (k = 0; k = allGems.size; k++){
             if (allGems[k].x == this.x && allGems[k].y == this.y){
-                this.x = xValues[Math.floor(Math.random()*5)];
-                this.y = yValues[Math.floor(Math.random()*3)];
+                gem = new Gem();
             }
         }
 
