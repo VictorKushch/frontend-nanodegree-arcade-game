@@ -36,8 +36,10 @@ Enemy.prototype.update = function(dt) {
         //resesing player to start position
         player.reset();
     }
- this.x = this.x;
- this.y = this.y;
+
+if (this.x > 505){
+        this.reset();
+    }
 
 };
 // reset enemy to the left side with 3 random y options
