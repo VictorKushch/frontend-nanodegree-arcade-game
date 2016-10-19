@@ -22,6 +22,7 @@ var Enemy = function(x,y) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+
     this.x = this.x + 50 * dt * this.multiplier;
     //collision detection
     if (this.y == player.y && ((this.x < player.x + 20) && (this.x > player.x - 20))){
@@ -32,15 +33,11 @@ Enemy.prototype.update = function(dt) {
             Game.gameOver = true;
         }
 
-
+        //resesing player to start position
         player.reset();
     }
 
 
-
-    if (this.x > 505){
-        this.reset();
-    }
 };
 // reset enemy to the left side with 3 random y options
 Enemy.prototype.reset = function() {
@@ -106,7 +103,7 @@ Player.prototype.handleInput = function(direction){
 
     }
 
-
+// detection collision with the water
     if (this.y == "-20" ){
         Game.gameScore += 25;
         element = document.getElementById('score').innerHTML = 'Score: ' + Game.gameScore;
@@ -130,6 +127,7 @@ Player.prototype.handleInput = function(direction){
 var gems_array = ['Heart.png','Key.png','Star.png','Rock.png','Gem Blue.png','Gem Green.png', 'Gem Orange.png'];
 
 var Gem = function(x, y){
+    //chousing random sprite and x,y position for insrance
     this.sprite = 'images/' + gems_array[Math.floor(Math.random()*7)];
     var yValues = [60, 140, 220];
     var xValues = [3,103,203,303,403];
@@ -139,7 +137,7 @@ var Gem = function(x, y){
 
 }
 
-
+//creating new gem by collision detected
 Gem.prototype.reset = function(){
     var yValues = [60, 140, 220];
     var xValues = [3,103,203,303,403];
@@ -150,21 +148,26 @@ Gem.prototype.reset = function(){
 
 
 }
-Gem.prototype.update = function(){
-    if (this.y == player.y && ((this.x < player.x + 20) && (this.x > player.x - 20))){
-        Game.gameScore += 50;
-        element = document.getElementById('score').innerHTML = 'Score: ' + Game.gameScore;
 
+Gem.prototype.update = function(){
+    //detecting collision of gem with player
+    if (this.y == player.y && ((this.x < player.x + 20) && (this.x > player.x - 20))){
+        //score update
+        Game.gameScore += 50;
+        //updating frontend
+        element = document.getElementById('score').innerHTML = 'Score: ' + Game.gameScore;
+        //detecting win of the game
         if (Game.gameScore > 500){
             Game.gameWin = true;
         }
+        //reset gem positin if collision detected
         this.reset();
     }
     this.x = this.x;
     this.y = this.y;
 }
 
-
+//gem instance rendering
 Gem.prototype.render = function() {
     var img = new Image();
         img.src = this.sprite;
@@ -180,9 +183,10 @@ Gem.prototype.render = function() {
 */
 var Game = new Game();
 
-
+//array of all gems
 var allEnemies = [];
 
+//start x position behind the screen
 var x = -100;
 for (var i = 0; i < 5; i++){
     var yValues = [60, 140, 220];
@@ -192,7 +196,7 @@ for (var i = 0; i < 5; i++){
     allEnemies.push(enemy);
 }
 
-
+//player object
 var player = new Player(203, 380);
 
 //Instantiate gems
