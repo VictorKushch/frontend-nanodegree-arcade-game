@@ -37,17 +37,17 @@ Enemy.prototype.update = function(dt) {
         player.reset();
     }
 //restarting enemy instance when it reach right side of screen
-if (this.x > 505){
-        this.reset();
-    }
+    if (this.x > 505){
+            this.reset();
+        }
 
-};
+    };
 // reset enemy to the left side with 3 random y options
 Enemy.prototype.reset = function() {
     this.x = -200;
     var yValues = [60, 140, 220];
     this.y = yValues[Math.floor(Math.random()*3)];
-}
+};
 
 
 // Draw the enemy on the screen, required method for game
@@ -68,19 +68,19 @@ var Player = function(x,y){
 
 
 
-}
+};
 
 Player.prototype.reset = function(){
     //reset player to the start position
     this.x = 203;
     this.y = 380;
 
-}
+};
 Player.prototype.update = function(){
     this.x = this.x;
     this.y = this.y;
 
-}
+};
 
 
 Player.prototype.render = function() {
@@ -119,7 +119,7 @@ Player.prototype.handleInput = function(direction){
 
     }
 
-}
+};
 
 /*
 *
@@ -138,7 +138,7 @@ var Gem = function(x, y){
     this.y = yValues[Math.floor(Math.random()*3)];
 
 
-}
+};
 
 //creating new gem by collision detected
 Gem.prototype.reset = function(){
@@ -150,7 +150,7 @@ Gem.prototype.reset = function(){
     this.sprite = 'images/' + gems_array[Math.floor(Math.random()*7)];
 
 
-}
+};
 
 Gem.prototype.update = function(){
     //detecting collision of gem with player
@@ -168,7 +168,7 @@ Gem.prototype.update = function(){
     }
     this.x = this.x;
     this.y = this.y;
-}
+};
 
 //gem instance rendering
 Gem.prototype.render = function() {
