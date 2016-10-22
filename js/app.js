@@ -4,20 +4,47 @@ var Game = function() {
     this.gameScore = 200;
 };
 
-// Enemies our player must avoid
-var Enemy = function(x,y) {
+//Character superclass
 
-    //setting image for enemy
-    this.sprite = 'images/enemy-bug.png';
-
+var Character = function(x,y){
 //setting position
-
     this.x = x;
     this.y = y;
+
+};
+
+Character.prototype.update = function(){
+
+};
+
+Character.prototype.reset = function() {
+
+};
+
+Character.prototype.render = function() {
+     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+inherit = function(subClass,superClass) {
+   subClass.prototype = Object.create(superClass.prototype); // delegate to prototype
+   subClass.prototype.constructor = subClass; // set constructor on prototype
+}
+
+
+
+
+// Enemies our player must avoid
+var Enemy = function(x,y) {
+    Character.call(this, x, y);
+    //setting image for enemy
+    this.sprite = 'images/enemy-bug.png';
 
     this.multiplier = Math.floor((Math.random() * 5) + 1);
 
 };
+
+inherit(Enemy,Character);
+ console.log(Enemy);
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -50,11 +77,6 @@ Enemy.prototype.reset = function() {
 };
 
 
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
 //
 //  PLAYER CLASS
 //
@@ -62,13 +84,13 @@ Enemy.prototype.render = function() {
 //Player constructor
 
 var Player = function(x,y){
+    Character.call(this, x, y);
     this.sprite = 'images/char-boy.png';
-    this.x = x;
-    this.y = y;
-
-
-
 };
+
+inherit(Player,Character);
+console.log(Player);
+
 
 Player.prototype.reset = function(){
     //reset player to the start position
@@ -83,9 +105,6 @@ Player.prototype.update = function(){
 };
 
 
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
 
 //change players position based on key input
 Player.prototype.handleInput = function(direction){
