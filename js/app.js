@@ -1,3 +1,7 @@
+//setting variable for x and y step
+var tile_width = 101,
+    tile_height = 83;
+
 var Game = function() {
 	this.gameOver = false;
 	this.gameWin = false;
@@ -50,7 +54,7 @@ inherit(Enemy,Character);
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
 
-    this.x = this.x + 50 * dt * this.multiplier;
+    this.x = this.x + 80 * dt * this.multiplier;
     //collision detection
     if (this.y == player.y && ((this.x < player.x + 20) && (this.x > player.x - 20))){
         Game.gameScore -= 100;
@@ -64,7 +68,7 @@ Enemy.prototype.update = function(dt) {
         player.reset();
     }
 //restarting enemy instance when it reach right side of screen
-    if (this.x > 505){
+    if (this.x > tile_width*5){
             this.reset();
         }
 
@@ -72,7 +76,8 @@ Enemy.prototype.update = function(dt) {
 // reset enemy to the left side with 3 random y options
 Enemy.prototype.reset = function() {
     this.x = -200;
-    var yValues = [60, 140, 220];
+    var yValues = [Math.floor(tile_height), Math.floor(tile_height)*2, Math.floor(tile_height)*3];
+    console.log(yValues);
     this.y = yValues[Math.floor(Math.random()*3)];
 };
 
@@ -94,13 +99,14 @@ console.log(Player);
 
 Player.prototype.reset = function(){
     //reset player to the start position
-    this.x = 203;
-    this.y = 380;
+    this.x = tile_width*2;
+    this.y = tile_height*4;
 
 };
 Player.prototype.update = function(){
     this.x = this.x;
     this.y = this.y;
+    console.log(this.x, this.y);
 
 };
 
@@ -110,23 +116,24 @@ Player.prototype.update = function(){
 Player.prototype.handleInput = function(direction){
 
     if (direction == 'up' && this.y>-20){
-        this.y -= 80;
+        this.y -= tile_height;
         console.log('x: ', this.x, 'y: ', this.y);
     } else if (direction == 'down' && this.y<380) {
-        this.y += 80;
+        this.y += tile_height;
         console.log('x: ', this.x, 'y: ', this.y);
 
     } else if (direction == 'right' && this.x<403 ) {
-        this.x += 100;
+        this.x += tile_width;
         console.log('x: ', this.x, 'y: ', this.y);
     } else if (direction == 'left' && this.x>3) {
-        this.x -= 100;
+        this.x -= tile_width;
         console.log('x: ', this.x, 'y: ', this.y);
 
     }
 
+
 // detection collision with the water
-    if (this.y == "-20" ){
+    if (this.y == "0" ){
         Game.gameScore += 25;
         element = document.getElementById('score').innerHTML = 'Score: ' + Game.gameScore;
 
@@ -134,7 +141,7 @@ Player.prototype.handleInput = function(direction){
         if (Game.gameScore > 700){
             Game.gameWin = true;
         }
-        player.reset();
+        this.reset();
 
     }
 
@@ -151,8 +158,8 @@ var gems_array = ['Heart.png','Key.png','Star.png','Rock.png','Gem Blue.png','Ge
 var Gem = function(x, y){
     //chousing random sprite and x,y position for insrance
     this.sprite = 'images/' + gems_array[Math.floor(Math.random()*7)];
-    var yValues = [60, 140, 220];
-    var xValues = [3,103,203,303,403];
+    var yValues = [tile_height, tile_height*2, tile_height*3];
+    var xValues = [tile_width, tile_width*2, tile_width*3, tile_width*4];
     this.x = xValues[Math.floor(Math.random()*5)];
     this.y = yValues[Math.floor(Math.random()*3)];
 
@@ -161,8 +168,8 @@ var Gem = function(x, y){
 
 //creating new gem by collision detected
 Gem.prototype.reset = function(){
-    var yValues = [60, 140, 220];
-    var xValues = [3,103,203,303,403];
+    var yValues = [tile_height, tile_height*2, tile_height*3];
+    var xValues = [0, tile_width, tile_width*2, tile_width*3, tile_width*4];
 
     this.x = xValues[Math.floor(Math.random()*5)];
     this.y = yValues[Math.floor(Math.random()*3)];
@@ -211,7 +218,7 @@ var allEnemies = [];
 //start x position behind the screen
 var x = -100;
 for (var i = 0; i < 5; i++){
-    var yValues = [60, 140, 220];
+    var yValues = [tile_height, tile_height*2, tile_height*3];
     var y = yValues[Math.floor(Math.random()*3)];
     var enemy = new Enemy(x, y);
 
@@ -219,7 +226,7 @@ for (var i = 0; i < 5; i++){
 }
 
 //player object
-var player = new Player(203, 380);
+var player = new Player(tile_width*2, tile_height*4); //
 
 //Instantiate gems
 var allGems = [];
